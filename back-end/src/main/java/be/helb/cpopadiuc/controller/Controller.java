@@ -7,6 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
+
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 public class Controller {
@@ -33,6 +36,19 @@ public class Controller {
     public List<Character> getAllCharacters() {
         return characterRepository.findAll();
     }
+
+    @GetMapping("/characters/{id}")
+    public ResponseEntity<Character> getCharacterById(@PathVariable Long id) {
+        Optional<Character> characterOptional = characterRepository.findById(id);
+
+        if (characterOptional.isPresent()) {
+            Character character = characterOptional.get();
+            return new ResponseEntity<>(character, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
     @PostMapping("/characters/add")
     public ResponseEntity<String> addCharacter(@RequestBody Character character) {

@@ -16,7 +16,19 @@ public class Character {
     @Column(name = "id_character")
     private Long id;
 
-    @OneToOne
+    @Column(name = "name_character", nullable = false)
+    private String name;
+
+    @Column(name = "rank", nullable = false)
+    private String rank;
+
+    @Column(name = "job", nullable = false)
+    private String job;
+
+    @Column(name = "bounty", nullable = false)
+    private int bounty;
+
+    @ManyToOne
     @JoinColumn(name = "devilfruit_id")
     private DevilFruit devilFruit;
 
@@ -32,15 +44,5 @@ public class Character {
     @JoinColumn(name = "fighttactics_id")
     private FightTactics fightTactics;
 
-    @Column(name = "name_character", nullable = false)
-    private String name;
 
-    @Column(name = "rank", nullable = false)
-    private String rank;
-
-    @Column(name = "job", nullable = false)
-    private String job;
-
-    @Column(name = "bounty", nullable = false)
-    private int bounty;
 }

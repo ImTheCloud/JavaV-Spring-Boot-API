@@ -25,7 +25,4 @@ public class DevilFruit {
     @Column(name = "type", nullable = false)
     private String type;
 
-    @OneToOne(mappedBy = "devilFruit")
-    private Character character;
-
 }

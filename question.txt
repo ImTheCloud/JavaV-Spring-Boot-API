@@ -1,0 +1,5 @@
+Relation one to many, many to one, one to one dans le projet ?
+Que signifie, L'utilisation de MapStruct est nécessaire pour la transformation des données sans renvoyer les modèles.
+que signifie : L'ajout d'une fonction permettant d'afficher des résultats basés sur les préférences des utilisateurs est
+               recommandé. Par exemple, une fonction de recherche de données prenant en compte plusieurs
+               paramètres.
