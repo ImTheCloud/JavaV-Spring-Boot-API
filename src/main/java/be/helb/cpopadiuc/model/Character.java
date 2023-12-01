@@ -16,7 +16,6 @@ public class Character {
     private double bounty;
     private String rank;
     private String job;
-    private String race;
 
 //    @ManyToOne
 //    @JoinColumn(name = "course_id") // Le nom de la colonne dans la table "Student" qui fait référence à "Course"
