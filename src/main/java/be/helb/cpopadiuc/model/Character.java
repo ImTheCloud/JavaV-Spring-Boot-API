@@ -1,4 +1,5 @@
 package be.helb.cpopadiuc.model;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,17 +8,39 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@Table(name = "characters")
 public class Character {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_character")
     private Long id;
+
+    @OneToOne
+    @JoinColumn(name = "devilfruit_id")
+    private DevilFruit devilFruit;
+
+    @ManyToOne
+    @JoinColumn(name = "crew_id")
+    private Crew crew;
+
+    @ManyToOne
+    @JoinColumn(name = "haki_id")
+    private Haki haki;
+
+    @ManyToOne
+    @JoinColumn(name = "fighttactics_id")
+    private FightTactics fightTactics;
+
+    @Column(name = "name_character", nullable = false)
     private String name;
-    private double bounty;
+
+    @Column(name = "rank", nullable = false)
     private String rank;
+
+    @Column(name = "job", nullable = false)
     private String job;
 
-//    @ManyToOne
-//    @JoinColumn(name = "course_id") // Le nom de la colonne dans la table "Student" qui fait référence à "Course"
-//    private Course course;
+    @Column(name = "bounty", nullable = false)
+    private int bounty;
 }
