@@ -25,7 +25,4 @@ public class Crew {
     @Column(name = "number_pirate", nullable = false)
     private int numberPirate;
 
-    @ManyToOne
-    @JoinColumn(name = "poneglyph_id")
-    private Poneglyph poneglyph;
 }

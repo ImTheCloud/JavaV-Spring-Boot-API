@@ -17,16 +17,14 @@ public class Controller {
     private final CharacterRepository characterRepository;
     private final FightTacticsRepository fightTacticsRepository;
     private final CrewRepository crewRepository;
-    private final PoneglyphRepository poneglyphRepository;
     private final HakiRepository hakiRepository;
     private final DevilFruitRepository devilFruitRepository;
 
     @Autowired
-    public Controller(CharacterRepository characterRepository, FightTacticsRepository fightTacticsRepository, CrewRepository crewRepository, PoneglyphRepository poneglyphRepository, HakiRepository hakiRepository, DevilFruitRepository devilFruitRepository) {
+    public Controller(CharacterRepository characterRepository, FightTacticsRepository fightTacticsRepository, CrewRepository crewRepository,  HakiRepository hakiRepository, DevilFruitRepository devilFruitRepository) {
         this.characterRepository = characterRepository;
         this.fightTacticsRepository = fightTacticsRepository;
         this.crewRepository = crewRepository;
-        this.poneglyphRepository = poneglyphRepository;
         this.hakiRepository = hakiRepository;
         this.devilFruitRepository = devilFruitRepository;
     }
@@ -78,18 +76,6 @@ public class Controller {
     public ResponseEntity<String> addCrew(@RequestBody Crew crew) {
         crewRepository.save(crew);
         return new ResponseEntity<>("Crew added successfully!", HttpStatus.OK);
-    }
-
-    // Endpoints for Poneglyphs
-    @GetMapping("/poneglyphs")
-    public List<Poneglyph> getAllPoneglyphs() {
-        return poneglyphRepository.findAll();
-    }
-
-    @PostMapping("/poneglyphs/add")
-    public ResponseEntity<String> addPoneglyph(@RequestBody Poneglyph poneglyph) {
-        poneglyphRepository.save(poneglyph);
-        return new ResponseEntity<>("Poneglyph added successfully!", HttpStatus.OK);
     }
 
     // Endpoints for Haki
