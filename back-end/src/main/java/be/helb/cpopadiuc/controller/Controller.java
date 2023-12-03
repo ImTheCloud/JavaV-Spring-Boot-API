@@ -19,15 +19,18 @@ public class Controller {
     private final CrewService crewService;
     private final HakiService hakiService;
     private final DevilFruitService devilFruitService;
+    private final FluideService fluideService;
+
 
     @Autowired
     public Controller(CharacterService characterService, FightTacticsService fightTacticsService,
-                      CrewService crewService, HakiService hakiService, DevilFruitService devilFruitService) {
+                      CrewService crewService, HakiService hakiService, DevilFruitService devilFruitService, FluideService fluideService) {
         this.characterService = characterService;
         this.fightTacticsService = fightTacticsService;
         this.crewService = crewService;
         this.hakiService = hakiService;
         this.devilFruitService = devilFruitService;
+        this.fluideService = fluideService;
     }
 
     // Endpoints for Characters
@@ -64,6 +67,12 @@ public class Controller {
     @PostMapping("/crews/add")
     public ResponseEntity<String> addCrew(@RequestBody Crew crew) {
         crewService.addCrew(crew);
+        return new ResponseEntity<>("Crew added successfully!", HttpStatus.OK);
+    }
+
+    @PostMapping("/fluide/add")
+    public ResponseEntity<String> addFluide(@RequestBody Fluide fluide) {
+        fluideService.addFruit(fluide);
         return new ResponseEntity<>("Crew added successfully!", HttpStatus.OK);
     }
 
