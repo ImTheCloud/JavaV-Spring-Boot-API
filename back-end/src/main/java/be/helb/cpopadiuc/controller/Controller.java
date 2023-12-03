@@ -1,104 +1,93 @@
 package be.helb.cpopadiuc.controller;
+
 import be.helb.cpopadiuc.model.*;
+import be.helb.cpopadiuc.service.*;
 import be.helb.cpopadiuc.model.Character;
-import be.helb.cpopadiuc.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 public class Controller {
 
-    private final CharacterRepository characterRepository;
-    private final FightTacticsRepository fightTacticsRepository;
-    private final CrewRepository crewRepository;
-    private final HakiRepository hakiRepository;
-    private final DevilFruitRepository devilFruitRepository;
+    private final CharacterService characterService;
+    private final FightTacticsService fightTacticsService;
+    private final CrewService crewService;
+    private final HakiService hakiService;
+    private final DevilFruitService devilFruitService;
 
     @Autowired
-    public Controller(CharacterRepository characterRepository, FightTacticsRepository fightTacticsRepository, CrewRepository crewRepository,  HakiRepository hakiRepository, DevilFruitRepository devilFruitRepository) {
-        this.characterRepository = characterRepository;
-        this.fightTacticsRepository = fightTacticsRepository;
-        this.crewRepository = crewRepository;
-        this.hakiRepository = hakiRepository;
-        this.devilFruitRepository = devilFruitRepository;
+    public Controller(CharacterService characterService, FightTacticsService fightTacticsService,
+                      CrewService crewService, HakiService hakiService, DevilFruitService devilFruitService) {
+        this.characterService = characterService;
+        this.fightTacticsService = fightTacticsService;
+        this.crewService = crewService;
+        this.hakiService = hakiService;
+        this.devilFruitService = devilFruitService;
     }
 
     // Endpoints for Characters
     @GetMapping("/characters")
     public List<Character> getAllCharacters() {
-        return characterRepository.findAll();
-    }
-
-    @GetMapping("/characters/{id}")
-    public ResponseEntity<Character> getCharacterById(@PathVariable Long id) {
-        Optional<Character> characterOptional = characterRepository.findById(id);
-
-        if (characterOptional.isPresent()) {
-            Character character = characterOptional.get();
-            return new ResponseEntity<>(character, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return characterService.getAllCharacters();
     }
 
 
     @PostMapping("/characters/add")
     public ResponseEntity<String> addCharacter(@RequestBody Character character) {
-        characterRepository.save(character);
+        characterService.addCharacter(character);
         return new ResponseEntity<>("Character added successfully!", HttpStatus.OK);
     }
 
     // Endpoints for FightTactics
     @GetMapping("/fight-tactics")
     public List<FightTactics> getAllFightTactics() {
-        return fightTacticsRepository.findAll();
+        return fightTacticsService.getAllFightTactics();
     }
 
     @PostMapping("/fight-tactics/add")
     public ResponseEntity<String> addFightTactics(@RequestBody FightTactics fightTactics) {
-        fightTacticsRepository.save(fightTactics);
+        fightTacticsService.addFightTactics(fightTactics);
         return new ResponseEntity<>("FightTactics added successfully!", HttpStatus.OK);
     }
 
     // Endpoints for Crews
     @GetMapping("/crews")
     public List<Crew> getAllCrews() {
-        return crewRepository.findAll();
+        return crewService.getAllCrews();
     }
 
     @PostMapping("/crews/add")
     public ResponseEntity<String> addCrew(@RequestBody Crew crew) {
-        crewRepository.save(crew);
+        crewService.addCrew(crew);
         return new ResponseEntity<>("Crew added successfully!", HttpStatus.OK);
     }
 
     // Endpoints for Haki
     @GetMapping("/haki")
     public List<Haki> getAllHaki() {
-        return hakiRepository.findAll();
+        return hakiService.getAllHaki();
     }
 
     @PostMapping("/haki/add")
     public ResponseEntity<String> addHaki(@RequestBody Haki haki) {
-        hakiRepository.save(haki);
+        hakiService.addHaki(haki);
         return new ResponseEntity<>("Haki added successfully!", HttpStatus.OK);
     }
 
     // Endpoints for DevilFruits
     @GetMapping("/devil-fruits")
     public List<DevilFruit> getAllDevilFruits() {
-        return devilFruitRepository.findAll();
+        return devilFruitService.getAllDevilFruits();
     }
 
     @PostMapping("/devil-fruits/add")
     public ResponseEntity<String> addDevilFruit(@RequestBody DevilFruit devilFruit) {
-        devilFruitRepository.save(devilFruit);
+        devilFruitService.addDevilFruit(devilFruit);
         return new ResponseEntity<>("DevilFruit added successfully!", HttpStatus.OK);
     }
 }
