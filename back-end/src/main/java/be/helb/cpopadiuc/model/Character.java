@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "character")
+@Table(name = "characters")
 public class Character {
 
     @Id
@@ -26,7 +26,7 @@ public class Character {
     private String job;
 
     @Column(name = "bounty", nullable = false)
-    private int bounty;
+    private long bounty;
 
     @ManyToOne
     @JoinColumn(name = "devilfruit_id")
@@ -44,5 +44,6 @@ public class Character {
     @JoinColumn(name = "fighttactics_id")
     private FightTactics fightTactics;
 
-
+    @Column(name = "imageUrl", nullable = false, length = 1000)
+    private String imageUrl;
 }
