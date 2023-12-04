@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HakiService {
@@ -24,5 +25,15 @@ public class HakiService {
 
     public void addHaki(Haki haki) {
         hakiRepository.save(haki);
+    }
+
+    public boolean deleteHakiById(Long id) {
+        Optional<Haki> optionalHaki = hakiRepository.findById(id);
+        if (optionalHaki.isPresent()) {
+            hakiRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

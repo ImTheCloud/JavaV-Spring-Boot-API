@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/crews")
@@ -30,5 +29,14 @@ public class CrewController {
     public ResponseEntity<String> addCrew(@RequestBody Crew crew) {
         crewService.addCrew(crew);
         return new ResponseEntity<>("Crew added successfully!", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCrew(@PathVariable Long id) {
+        if (crewService.deleteCrewById(id)) {
+            return new ResponseEntity<>("Crew deleted successfully!", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Crew not found or unable to delete", HttpStatus.NOT_FOUND);
+        }
     }
 }

@@ -31,4 +31,13 @@ public class DevilFruitController {
         devilFruitService.addDevilFruit(devilFruit);
         return new ResponseEntity<>("DevilFruit added successfully!", HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteDevilFruit(@PathVariable Long id) {
+        if (devilFruitService.deleteDevilFruitById(id)) {
+            return new ResponseEntity<>("DevilFruit deleted successfully!", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("DevilFruit not found or unable to delete", HttpStatus.NOT_FOUND);
+        }
+    }
 }

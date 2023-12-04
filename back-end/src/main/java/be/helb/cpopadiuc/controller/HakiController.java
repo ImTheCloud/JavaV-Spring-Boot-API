@@ -31,4 +31,13 @@ public class HakiController {
         hakiService.addHaki(haki);
         return new ResponseEntity<>("Haki added successfully!", HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteHaki(@PathVariable Long id) {
+        if (hakiService.deleteHakiById(id)) {
+            return new ResponseEntity<>("Haki deleted successfully!", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Haki not found or unable to delete", HttpStatus.NOT_FOUND);
+        }
+    }
 }

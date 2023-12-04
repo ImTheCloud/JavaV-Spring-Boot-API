@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 
 @Service
 public class FightTacticsService {
@@ -24,5 +26,15 @@ public class FightTacticsService {
 
     public void addFightTactics(FightTactics fightTactics) {
         fightTacticsRepository.save(fightTactics);
+    }
+
+    public boolean deleteFightTacticsById(Long id) {
+        Optional<FightTactics> optionalFightTactics = fightTacticsRepository.findById(id);
+        if (optionalFightTactics.isPresent()) {
+            fightTacticsRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

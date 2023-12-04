@@ -31,4 +31,13 @@ public class CharacterController {
         characterService.addCharacter(character);
         return new ResponseEntity<>("Character added successfully!", HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCharacter(@PathVariable Long id) {
+        if (characterService.deleteCharacterById(id)) {
+            return new ResponseEntity<>("Character deleted successfully!", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Character not found or unable to delete", HttpStatus.NOT_FOUND);
+        }
+    }
 }

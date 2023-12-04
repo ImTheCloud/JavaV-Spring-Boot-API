@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/fight-tactics")
@@ -30,5 +29,14 @@ public class FightTacticsController {
     public ResponseEntity<String> addFightTactics(@RequestBody FightTactics fightTactics) {
         fightTacticsService.addFightTactics(fightTactics);
         return new ResponseEntity<>("FightTactics added successfully!", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteFightTactics(@PathVariable Long id) {
+        if (fightTacticsService.deleteFightTacticsById(id)) {
+            return new ResponseEntity<>("FightTactics deleted successfully!", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("FightTactics not found or unable to delete", HttpStatus.NOT_FOUND);
+        }
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CrewService {
@@ -24,5 +25,15 @@ public class CrewService {
 
     public void addCrew(Crew crew) {
         crewRepository.save(crew);
+    }
+
+    public boolean deleteCrewById(Long id) {
+        Optional<Crew> optionalCrew = crewRepository.findById(id);
+        if (optionalCrew.isPresent()) {
+            crewRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
