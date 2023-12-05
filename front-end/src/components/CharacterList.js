@@ -61,10 +61,14 @@ const CharacterList = () => {
                     backgroundPosition: 'center',
                     minHeight: '100vh',
                 }}
-            >
-                <Typography variant="h1" gutterBottom style={{ color: '#fff', marginBottom: '20px' }}>
-                    One Piece API
+            >   <Typography variant="h2" gutterBottom style={{ color: '#fff', marginBottom: '20px', textAlign: 'center' }}>
+                Start using the One Piece API right now
+            </Typography>
+                <Typography variant="h6" gutterBottom style={{ color: '#fff', marginBottom: '20px', textAlign: 'center' }}>
+                    The One Piece API is a tool to retrieve multiple information about your favorite manga
                 </Typography>
+
+
 
                 {loading && <CircularProgress style={{ color: '#fff', marginBottom: '20px' }} />}
                 {error && <Typography variant="h5" style={{ color: '#fff', marginBottom: '20px' }}>{error}</Typography>}
