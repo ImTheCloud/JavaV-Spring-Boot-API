@@ -56,4 +56,8 @@ public class CharacterController {
         return characterService.getCharactersByRank(rank);
     }
 
+    @GetMapping("/highBountyAndNoDevilFruit")
+    public List<Character> getCharactersWithHighBountyAndNoDevilFruit() {
+        return characterService.getCharactersWithHighBountyAndNoDevilFruit();
+    }
 }

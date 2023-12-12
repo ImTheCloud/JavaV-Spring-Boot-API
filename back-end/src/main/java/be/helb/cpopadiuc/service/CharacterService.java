@@ -38,6 +38,11 @@ public class CharacterService {
         return characterRepository.findByRank(rank);
     }
 
+    public List<Character> getCharactersWithHighBountyAndNoDevilFruit() {
+        long minBounty = 1_000_000_000;
+        return characterRepository.findByBountyGreaterThanAndDevilFruitIsNull(minBounty);
+    }
+
     public boolean deleteCharacterById(Long id) {
         Optional<Character> optionalCharacter = characterRepository.findById(id);
         if (optionalCharacter.isPresent()) {
