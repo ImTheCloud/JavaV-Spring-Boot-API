@@ -30,6 +30,10 @@ public class CharacterService {
         return characterRepository.findByCrewId(crewId);
     }
 
+    public List<Character> getCharactersByJob(String job) {
+        return characterRepository.findByJob(job);
+    }
+
     public boolean deleteCharacterById(Long id) {
         Optional<Character> optionalCharacter = characterRepository.findById(id);
         if (optionalCharacter.isPresent()) {

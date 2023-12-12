@@ -46,5 +46,9 @@ public class CharacterController {
         return characterService.getCharactersByCrew(crewId);
     }
 
-    
+    @GetMapping("/byJob/{job}")
+    public List<Character> getCharactersByJob(@PathVariable String job) {
+        return characterService.getCharactersByJob(job);
+    }
+
 }
