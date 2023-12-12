@@ -15,17 +15,12 @@ public class Fight {
     @Column(name = "id_fight")
     private Long id;
 
+    @Column(name = "name1", nullable = false)
+    private String name1;
 
-
-    @Column(name = "location", nullable = false)
-    private String location;
-
-    @Column(name = "duration", nullable = false)
-    private String duration;
+    @Column(name = "name2", nullable = false)
+    private String name2;
 
     @Column(name = "result", nullable = false)
     private String result;
-
-
-
 }
