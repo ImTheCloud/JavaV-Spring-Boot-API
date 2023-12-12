@@ -3,18 +3,27 @@ package be.helb.cpopadiuc.controller;
 import be.helb.cpopadiuc.model.Character;
 import be.helb.cpopadiuc.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/characters")
+
 public class CharacterController {
 
     private final CharacterService characterService;
+    @Autowired
+    private RestTemplate restTemplate;
+    @Value("${fight.api.url}")
+    private String fightApiUrl;
 
     @Autowired
     public CharacterController(CharacterService characterService) {
@@ -59,5 +68,19 @@ public class CharacterController {
     @GetMapping("/highBountyAndNoDevilFruit")
     public List<Character> getCharactersWithHighBountyAndNoDevilFruit() {
         return characterService.getCharactersWithHighBountyAndNoDevilFruit();
+    }
+
+    @GetMapping("/fight/{name1}/{name2}")
+    public ResponseEntity<String> initiateFight(@PathVariable String name1, @PathVariable String name2) {
+        String fightApiEndpoint = fightApiUrl + "/api/fights/fightResult/{name1}/{name2}";
+        ResponseEntity<String> response = restTemplate.exchange(
+                fightApiEndpoint,
+                HttpMethod.GET,
+                null,
+                String.class,
+                name1,
+                name2
+        );
+        return new ResponseEntity<>(response.getBody(), response.getStatusCode());
     }
 }
