@@ -26,6 +26,10 @@ public class CharacterService {
         characterRepository.save(character);
     }
 
+    public List<Character> getCharactersByCrew(Long crewId) {
+        return characterRepository.findByCrewId(crewId);
+    }
+
     public boolean deleteCharacterById(Long id) {
         Optional<Character> optionalCharacter = characterRepository.findById(id);
         if (optionalCharacter.isPresent()) {

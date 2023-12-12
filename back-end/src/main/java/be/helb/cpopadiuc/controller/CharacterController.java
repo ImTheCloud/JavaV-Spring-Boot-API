@@ -40,4 +40,11 @@ public class CharacterController {
             return new ResponseEntity<>("Character not found or unable to delete", HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/byCrew/{crewId}")
+    public List<Character> getCharactersByCrew(@PathVariable Long crewId) {
+        return characterService.getCharactersByCrew(crewId);
+    }
+
+    
 }
