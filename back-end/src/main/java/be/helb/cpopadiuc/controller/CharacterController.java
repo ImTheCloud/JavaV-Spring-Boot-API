@@ -60,4 +60,12 @@ public class CharacterController {
     public List<Character> getCharactersWithHighBountyAndNoDevilFruit() {
         return characterService.getCharactersWithHighBountyAndNoDevilFruit();
     }
+
+    @GetMapping("/checkFight/{id1}/{id2}")
+    public ResponseEntity<String> checkFight(@PathVariable Long id1, @PathVariable Long id2) {
+        String fightApiUrl = "http://localhost:8081/api/fights/checkFight/" + id1 + "/" + id2;
+        ResponseEntity<String> response = restTemplate.getForEntity(fightApiUrl, String.class);
+
+        return new ResponseEntity<>(response.getBody(), response.getStatusCode());
+    }
 }

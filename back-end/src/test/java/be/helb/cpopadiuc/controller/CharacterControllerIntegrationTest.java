@@ -16,7 +16,7 @@ public class CharacterControllerIntegrationTest {
     @BeforeAll
     public static void setup() {
         RestAssured.baseURI = "http://localhost";
-        RestAssured.port = 8080; // Use the port where your application is running
+        RestAssured.port = 8080;
     }
 
     @Test
@@ -51,10 +51,8 @@ public class CharacterControllerIntegrationTest {
 
     @Test
     public void testDeleteCharacter() {
-        // Add a character with ID 999 before attempting to delete it
         testAddCharacter();
 
-        // Now delete the character with ID 999
         given()
                 .when()
                 .delete("/api/characters/10")
