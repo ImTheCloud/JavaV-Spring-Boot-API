@@ -34,6 +34,10 @@ public class CharacterService {
         return characterRepository.findByJob(job);
     }
 
+    public List<Character> getCharactersByRank(String rank) {
+        return characterRepository.findByRank(rank);
+    }
+
     public boolean deleteCharacterById(Long id) {
         Optional<Character> optionalCharacter = characterRepository.findById(id);
         if (optionalCharacter.isPresent()) {

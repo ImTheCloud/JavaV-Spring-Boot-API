@@ -51,4 +51,9 @@ public class CharacterController {
         return characterService.getCharactersByJob(job);
     }
 
+    @GetMapping("/byRank/{rank}")
+    public List<Character> getCharactersByRank(@PathVariable String rank) {
+        return characterService.getCharactersByRank(rank);
+    }
+
 }
