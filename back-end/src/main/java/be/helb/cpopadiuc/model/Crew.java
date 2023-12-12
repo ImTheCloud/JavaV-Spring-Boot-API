@@ -2,6 +2,7 @@ package be.helb.cpopadiuc.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -24,5 +25,8 @@ public class Crew {
 
     @Column(name = "number_pirate", nullable = false)
     private int numberPirate;
+
+    @OneToMany(mappedBy = "crew")
+    private List<Character> characters;
 
 }

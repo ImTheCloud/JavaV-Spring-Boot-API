@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,4 +22,7 @@ public class Haki {
 
     @Column(name = "description_haki", nullable = false)
     private String descriptionHaki;
+
+    @OneToMany(mappedBy = "haki")
+    private List<Character> characters;
 }
