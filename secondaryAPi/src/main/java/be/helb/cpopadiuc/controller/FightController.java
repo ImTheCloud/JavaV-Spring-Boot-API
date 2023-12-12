@@ -29,25 +29,9 @@ public class FightController {
         fightService.addFight(fight);
         return new ResponseEntity<>("Fight added successfully!", HttpStatus.OK);
     }
-    @GetMapping("/fight/{name1}/{name2}")
+    @GetMapping("/fightResult/{name1}/{name2}")
     public ResponseEntity<String> getFightResult(@PathVariable String name1, @PathVariable String name2) {
         String result = fightService.getFightResult(name1, name2);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
-
-//    @GetMapping("/result")
-//    public ResponseEntity<String> getFightResult(
-//            @RequestParam(name = "name1") String name1,
-//            @RequestParam(name = "name2") String name2) {
-//
-//        String result = fightService.getFightResult(name1, name2);
-//
-//        if (result != null) {
-//            return new ResponseEntity<>(result, HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>("Combat non trouvé", HttpStatus.NOT_FOUND);
-//        }
-//    }
-
-
 }

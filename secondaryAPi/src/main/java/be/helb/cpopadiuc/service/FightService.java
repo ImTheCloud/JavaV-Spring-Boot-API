@@ -21,9 +21,6 @@ public class FightService {
     public List<Fight> getAllFights() {
         return fightRepository.findAll();
     }
-//    public String getFightResult(String name1, String name2) {
-//        return fightRepository.findResultByNames(name1, name2);
-//    }
     public String getFightResult(String name1, String name2) {
         Optional<Fight> optionalFight = fightRepository.findByNames(name1, name2);
         return optionalFight.map(Fight::getResult).orElse("No fight found");
