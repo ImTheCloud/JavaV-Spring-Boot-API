@@ -2,7 +2,6 @@ package be.helb.cpopadiuc.model;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
 
 // Lombok annotations to generate getters and setters

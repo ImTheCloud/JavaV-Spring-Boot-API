@@ -1,4 +1,3 @@
-// Importing necessary packages and classes
 package be.helb.cpopadiuc.controller;
 
 import be.helb.cpopadiuc.model.Character;
