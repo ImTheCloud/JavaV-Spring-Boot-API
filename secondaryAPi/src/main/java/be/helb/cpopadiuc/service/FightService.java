@@ -1,3 +1,4 @@
+// FightService.java
 package be.helb.cpopadiuc.service;
 
 import be.helb.cpopadiuc.model.Fight;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+// Service class for handling business logic related to fights
 @Service
 public class FightService {
 
@@ -21,11 +23,24 @@ public class FightService {
     public List<Fight> getAllFights() {
         return fightRepository.findAll();
     }
+
     public String getFightResult(String name1, String name2) {
         Optional<Fight> optionalFight = fightRepository.findByNames(name1, name2);
         return optionalFight.map(Fight::getResult).orElse("No fight found");
     }
+
     public void addFight(Fight fight) {
         fightRepository.save(fight);
+    }
+
+    // Method to delete a fight by its ID
+    public boolean deleteFightById(Long id) {
+        Optional<Fight> optionalFight = fightRepository.findById(id);
+        if (optionalFight.isPresent()) {
+            fightRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

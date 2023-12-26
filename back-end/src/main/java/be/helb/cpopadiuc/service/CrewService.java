@@ -1,17 +1,17 @@
-// CrewService.java
 package be.helb.cpopadiuc.service;
 
 import be.helb.cpopadiuc.model.Crew;
 import be.helb.cpopadiuc.repository.CrewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
+// Service class to manage business logic for Crew entity
 @Service
 public class CrewService {
 
+    // Injecting CrewRepository dependency
     private final CrewRepository crewRepository;
 
     @Autowired
@@ -19,14 +19,17 @@ public class CrewService {
         this.crewRepository = crewRepository;
     }
 
+    // Method to retrieve all crews
     public List<Crew> getAllCrews() {
         return crewRepository.findAll();
     }
 
+    // Method to add a new crew
     public void addCrew(Crew crew) {
         crewRepository.save(crew);
     }
 
+    // Method to delete a crew by ID
     public boolean deleteCrewById(Long id) {
         Optional<Crew> optionalCrew = crewRepository.findById(id);
         if (optionalCrew.isPresent()) {
