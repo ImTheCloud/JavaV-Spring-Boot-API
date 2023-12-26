@@ -1,13 +1,10 @@
-// Package declaration for the controller
 package be.helb.cpopadiuc.controller;
 
-// Import statements
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import be.helb.cpopadiuc.model.Character;
-
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
