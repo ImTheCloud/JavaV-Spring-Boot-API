@@ -77,7 +77,7 @@ public class CharacterController {
         return characterService.getCharactersWithHighBountyAndNoDevilFruit();
     }
 
-    // Handling HTTP GET request to initiate a fight between two characters
+    // Handling HTTP GET request to initiate a fight between two characters with the secondary API
     @GetMapping("/fight/{name1}/{name2}")
     public ResponseEntity<String> initiateFight(@PathVariable String name1, @PathVariable String name2) {
         // Constructing the API endpoint for the fight service
