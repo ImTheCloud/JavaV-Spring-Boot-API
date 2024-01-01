@@ -8,16 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
-// Configuring Cross-Origin Resource Sharing (CORS) for the controller
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-
-// Request mapping for the API endpoints related to devil fruits
 @RequestMapping("/api/devil-fruits")
 public class DevilFruitController {
 
-    // Injecting DevilFruitService dependency
     private final DevilFruitService devilFruitService;
 
     @Autowired
@@ -25,26 +22,41 @@ public class DevilFruitController {
         this.devilFruitService = devilFruitService;
     }
 
-    // Handling HTTP GET request to retrieve all devil fruits
     @GetMapping
     public List<DevilFruit> getAllDevilFruits() {
         return devilFruitService.getAllDevilFruits();
     }
 
-    // Handling HTTP POST request to add a new devil fruit
     @PostMapping("/add")
     public ResponseEntity<String> addDevilFruit(@RequestBody DevilFruit devilFruit) {
         devilFruitService.addDevilFruit(devilFruit);
         return new ResponseEntity<>("DevilFruit added successfully!", HttpStatus.OK);
     }
 
-    // Handling HTTP DELETE request to delete a devil fruit by ID
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteDevilFruit(@PathVariable Long id) {
         if (devilFruitService.deleteDevilFruitById(id)) {
             return new ResponseEntity<>("DevilFruit deleted successfully!", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("DevilFruit not found or unable to delete", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    //  endpoint to get a specific devil fruit by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<DevilFruit> getDevilFruitById(@PathVariable Long id) {
+        Optional<DevilFruit> devilFruit = devilFruitService.getDevilFruitById(id);
+        return devilFruit.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    //  endpoint to update the details of a devil fruit by ID
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateDevilFruit(@PathVariable Long id, @RequestBody DevilFruit updatedDevilFruit) {
+        if (devilFruitService.updateDevilFruit(id, updatedDevilFruit)) {
+            return new ResponseEntity<>("DevilFruit updated successfully!", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("DevilFruit not found or unable to update", HttpStatus.NOT_FOUND);
         }
     }
 }

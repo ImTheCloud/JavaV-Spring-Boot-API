@@ -39,4 +39,21 @@ public class CrewService {
             return false;
         }
     }
+
+    // Method to retrieve a crew by ID
+    public Optional<Crew> getCrewById(Long id) {
+        return crewRepository.findById(id);
+    }
+
+    // Method to update a crew by ID
+    public boolean updateCrew(Long id, Crew updatedCrew) {
+        Optional<Crew> optionalCrew = crewRepository.findById(id);
+        if (optionalCrew.isPresent()) {
+            updatedCrew.setId(id); // Set the ID of the updated crew
+            crewRepository.save(updatedCrew);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

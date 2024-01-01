@@ -12,7 +12,6 @@ import java.util.Optional;
 @Service
 public class FightTacticsService {
 
-    // Injecting FightTacticsRepository dependency
     private final FightTacticsRepository fightTacticsRepository;
 
     @Autowired
@@ -20,21 +19,35 @@ public class FightTacticsService {
         this.fightTacticsRepository = fightTacticsRepository;
     }
 
-    // Method to retrieve all fight tactics
     public List<FightTactics> getAllFightTactics() {
         return fightTacticsRepository.findAll();
     }
 
-    // Method to add a new fight tactics
     public void addFightTactics(FightTactics fightTactics) {
         fightTacticsRepository.save(fightTactics);
     }
 
-    // Method to delete a fight tactics by ID
     public boolean deleteFightTacticsById(Long id) {
         Optional<FightTactics> optionalFightTactics = fightTacticsRepository.findById(id);
         if (optionalFightTactics.isPresent()) {
             fightTacticsRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // New method to get a specific fight tactics by ID
+    public Optional<FightTactics> getFightTacticsById(Long id) {
+        return fightTacticsRepository.findById(id);
+    }
+
+    // New method to update a fight tactics by ID
+    public boolean updateFightTactics(Long id, FightTactics updatedFightTactics) {
+        Optional<FightTactics> optionalFightTactics = fightTacticsRepository.findById(id);
+        if (optionalFightTactics.isPresent()) {
+            updatedFightTactics.setId(id);
+            fightTacticsRepository.save(updatedFightTactics);
             return true;
         } else {
             return false;

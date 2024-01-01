@@ -87,7 +87,7 @@ public class CharacterControllerIntegrationTest {
     public void testGetCharactersByJob() {
         given()
                 .when()
-                .get("/api/characters/byJob/{job}", "TestJob")
+                .get("/api/characters/byJob/{job}", "UpdatedJob")
                 .then()
                 .statusCode(200)
                 .body("size()", greaterThan(0));
@@ -98,7 +98,7 @@ public class CharacterControllerIntegrationTest {
     public void testGetCharactersByRank() {
         given()
                 .when()
-                .get("/api/characters/byRank/{rank}", "TestRank")
+                .get("/api/characters/byRank/{rank}", "UpdatedRank")
                 .then()
                 .statusCode(200)
                 .body("size()", greaterThan(0));
@@ -113,5 +113,53 @@ public class CharacterControllerIntegrationTest {
                 .then()
                 .statusCode(200)
                 .body("size()", equalTo(1));
+    }
+
+    // Test to get a character by ID
+    @Test
+    public void testGetCharacterById() {
+        Long latestId = characterRepository.findMaxId();
+
+        given()
+                .when()
+                .get("/api/characters/" + latestId)
+                .then()
+                .statusCode(200)
+                .body("id", equalTo(latestId.intValue())); // Adjust the assertion based on your actual data
+    }
+
+    // Test to update (PUT) a character by ID
+    @Test
+    public void testUpdateCharacter() {
+        Long latestId = characterRepository.findMaxId();
+
+        // Create a Character object with updated data
+        Character updatedCharacter = new Character();
+        updatedCharacter.setName("UpdatedName");
+        updatedCharacter.setRank("UpdatedRank");
+        updatedCharacter.setJob("UpdatedJob");
+        updatedCharacter.setBounty(2000000L); // Set an appropriate bounty value
+        updatedCharacter.setImageUrl("http://example.com/updated_image.jpg");
+
+        given()
+                .contentType("application/json")
+                .body(updatedCharacter)
+                .when()
+                .put("/api/characters/" + latestId)
+                .then()
+                .statusCode(200)
+                .body(equalTo("Character updated successfully!"));
+
+        // Optionally, you can add additional assertions to check if the data is updated in the database
+        given()
+                .when()
+                .get("/api/characters/" + latestId)
+                .then()
+                .statusCode(200)
+                .body("name", equalTo("UpdatedName"))
+                .body("rank", equalTo("UpdatedRank"))
+                .body("job", equalTo("UpdatedJob"))
+                .body("bounty", equalTo(2000000))
+                .body("imageUrl", equalTo("http://example.com/updated_image.jpg"));
     }
 }

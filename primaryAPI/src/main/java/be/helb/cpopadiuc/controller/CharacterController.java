@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.client.RestTemplate;
 import java.util.List;
+import java.util.Optional;
 
 // Configuring Cross-Origin Resource Sharing (CORS) for the controller
 @CrossOrigin(origins = "http://localhost:3000")
@@ -95,6 +96,24 @@ public class CharacterController {
 
         // Returning the response from the fight service
         return new ResponseEntity<>(response.getBody(), response.getStatusCode());
+    }
+
+    // Handling HTTP PUT request to update a character by ID
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateCharacter(@PathVariable Long id, @RequestBody Character updatedCharacter) {
+        if (characterService.updateCharacter(id, updatedCharacter)) {
+            return new ResponseEntity<>("Character updated successfully!", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Character not found or unable to update", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // Handling HTTP GET request to retrieve a character by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Character> getCharacterById(@PathVariable Long id) {
+        Optional<Character> character = characterService.getCharacterById(id);
+        return character.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 }

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 // Configuring Cross-Origin Resource Sharing (CORS) for the controller
 @CrossOrigin(origins = "http://localhost:3000")
@@ -47,4 +48,23 @@ public class CrewController {
             return new ResponseEntity<>("Crew not found or unable to delete", HttpStatus.NOT_FOUND);
         }
     }
+
+    // Handling HTTP GET request to retrieve a specific crew by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Crew> getCrewById(@PathVariable Long id) {
+        Optional<Crew> crew = crewService.getCrewById(id);
+        return crew.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    // Handling HTTP PUT request to update the details of a crew by ID
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateCrew(@PathVariable Long id, @RequestBody Crew updatedCrew) {
+        if (crewService.updateCrew(id, updatedCrew)) {
+            return new ResponseEntity<>("Crew updated successfully!", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Crew not found or unable to update", HttpStatus.NOT_FOUND);
+        }
+    }
+
 }

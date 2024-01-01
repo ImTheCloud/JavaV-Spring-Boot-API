@@ -12,7 +12,6 @@ import java.util.Optional;
 @Service
 public class DevilFruitService {
 
-    // Injecting DevilFruitRepository dependency
     private final DevilFruitRepository devilFruitRepository;
 
     @Autowired
@@ -20,21 +19,35 @@ public class DevilFruitService {
         this.devilFruitRepository = devilFruitRepository;
     }
 
-    // Method to retrieve all devil fruits
     public List<DevilFruit> getAllDevilFruits() {
         return devilFruitRepository.findAll();
     }
 
-    // Method to add a new devil fruit
     public void addDevilFruit(DevilFruit devilFruit) {
         devilFruitRepository.save(devilFruit);
     }
 
-    // Method to delete a devil fruit by ID
     public boolean deleteDevilFruitById(Long id) {
         Optional<DevilFruit> optionalDevilFruit = devilFruitRepository.findById(id);
         if (optionalDevilFruit.isPresent()) {
             devilFruitRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // New method to get a specific devil fruit by ID
+    public Optional<DevilFruit> getDevilFruitById(Long id) {
+        return devilFruitRepository.findById(id);
+    }
+
+    // New method to update a devil fruit by ID
+    public boolean updateDevilFruit(Long id, DevilFruit updatedDevilFruit) {
+        Optional<DevilFruit> optionalDevilFruit = devilFruitRepository.findById(id);
+        if (optionalDevilFruit.isPresent()) {
+            updatedDevilFruit.setId(id);
+            devilFruitRepository.save(updatedDevilFruit);
             return true;
         } else {
             return false;

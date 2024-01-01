@@ -65,4 +65,35 @@ public class FightTacticsControllerIntegrationTest {
                 .statusCode(200)
                 .body(equalTo("FightTactics deleted successfully!"));
     }
+
+    //  test to get a specific fight tactics by ID
+    @Test
+    public void testGetFightTacticsById() {
+        Long latestId = fightTacticsRepository.findMaxId();
+
+        given()
+                .when()
+                .get("/api/fight-tactics/" + latestId)
+                .then()
+                .statusCode(200);
+    }
+
+    //  test to update a fight tactics by ID
+    @Test
+    public void testUpdateFightTactics() {
+        Long latestId = fightTacticsRepository.findMaxId();
+
+        FightTactics updatedFightTactics = new FightTactics();
+        updatedFightTactics.setNameTactics("UpdatedTestFightTactics");
+        updatedFightTactics.setType("UpdatedTestType");
+
+        given()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(updatedFightTactics)
+                .when()
+                .put("/api/fight-tactics/" + latestId)
+                .then()
+                .statusCode(200)
+                .body(equalTo("FightTactics updated successfully!"));
+    }
 }

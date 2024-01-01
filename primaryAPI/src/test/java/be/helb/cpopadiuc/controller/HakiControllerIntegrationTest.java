@@ -65,4 +65,34 @@ public class HakiControllerIntegrationTest {
                 .statusCode(200)
                 .body(equalTo("Haki deleted successfully!"));
     }
+    //  test to get a specific Haki by ID
+    @Test
+    public void testGetHakiById() {
+        Long latestId = hakiRepository.findMaxId();
+
+        given()
+                .when()
+                .get("/api/haki/" + latestId)
+                .then()
+                .statusCode(200);
+    }
+
+    //  test to update a Haki by ID
+    @Test
+    public void testUpdateHaki() {
+        Long latestId = hakiRepository.findMaxId();
+
+        Haki updatedHaki = new Haki();
+        updatedHaki.setNameHaki("UpdatedTestHaki");
+        updatedHaki.setDescriptionHaki("UpdatedTestDescription");
+
+        given()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(updatedHaki)
+                .when()
+                .put("/api/haki/" + latestId)
+                .then()
+                .statusCode(200)
+                .body(equalTo("Haki updated successfully!"));
+    }
 }

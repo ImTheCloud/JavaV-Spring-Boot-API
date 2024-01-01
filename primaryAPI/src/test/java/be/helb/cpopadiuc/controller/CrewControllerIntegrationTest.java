@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
@@ -56,6 +57,7 @@ public class CrewControllerIntegrationTest {
     // Test to delete a crew
     @Test
     public void testDeleteCrew() {
+        // Assume there is at least one crew in the database for testing
         Long latestId = crewRepository.findMaxId();
 
         given()
@@ -64,5 +66,36 @@ public class CrewControllerIntegrationTest {
                 .then()
                 .statusCode(200)
                 .body(equalTo("Crew deleted successfully!"));
+    }
+
+    // Test to get a specific crew by ID
+    @Test
+    public void testGetCrewById() {
+        given()
+                .when()
+                .get("/api/crews/" + 1)
+                .then()
+                .statusCode(200);
+    }
+
+    // Test to update a crew by ID
+    @Test
+    public void testUpdateCrew() {
+        // Assume there is at least one crew in the database for testing
+        Long latestId = crewRepository.findMaxId();
+
+        Crew updatedCrew = new Crew();
+        updatedCrew.setNameCrew("UpdatedTestCrew");
+        updatedCrew.setShipName("UpdatedTestShipName");
+        updatedCrew.setNumberPirate(10);
+
+        given()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(updatedCrew)
+                .when()
+                .put("/api/crews/" + latestId)
+                .then()
+                .statusCode(200)
+                .body(equalTo("Crew updated successfully!"));
     }
 }

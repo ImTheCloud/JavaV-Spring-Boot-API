@@ -8,11 +8,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-// Service class to manage business logic for Haki entity
 @Service
 public class HakiService {
 
-    // Injecting HakiRepository dependency
     private final HakiRepository hakiRepository;
 
     @Autowired
@@ -20,21 +18,35 @@ public class HakiService {
         this.hakiRepository = hakiRepository;
     }
 
-    // Method to retrieve all haki
     public List<Haki> getAllHaki() {
         return hakiRepository.findAll();
     }
 
-    // Method to add a new haki
     public void addHaki(Haki haki) {
         hakiRepository.save(haki);
     }
 
-    // Method to delete a haki by ID
     public boolean deleteHakiById(Long id) {
         Optional<Haki> optionalHaki = hakiRepository.findById(id);
         if (optionalHaki.isPresent()) {
             hakiRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // New method to get a specific Haki by ID
+    public Optional<Haki> getHakiById(Long id) {
+        return hakiRepository.findById(id);
+    }
+
+    // New method to update a Haki by ID
+    public boolean updateHaki(Long id, Haki updatedHaki) {
+        Optional<Haki> optionalHaki = hakiRepository.findById(id);
+        if (optionalHaki.isPresent()) {
+            updatedHaki.setId(id);
+            hakiRepository.save(updatedHaki);
             return true;
         } else {
             return false;

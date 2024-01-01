@@ -8,16 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
-// Configuring Cross-Origin Resource Sharing (CORS) for the controller
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-
-// Request mapping for the API endpoints related to haki
 @RequestMapping("/api/haki")
 public class HakiController {
 
-    // Injecting HakiService dependency
     private final HakiService hakiService;
 
     @Autowired
@@ -25,26 +22,41 @@ public class HakiController {
         this.hakiService = hakiService;
     }
 
-    // Handling HTTP GET request to retrieve all haki
     @GetMapping
     public List<Haki> getAllHaki() {
         return hakiService.getAllHaki();
     }
 
-    // Handling HTTP POST request to add a new haki
     @PostMapping("/add")
     public ResponseEntity<String> addHaki(@RequestBody Haki haki) {
         hakiService.addHaki(haki);
         return new ResponseEntity<>("Haki added successfully!", HttpStatus.OK);
     }
 
-    // Handling HTTP DELETE request to delete a haki by ID
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteHaki(@PathVariable Long id) {
         if (hakiService.deleteHakiById(id)) {
             return new ResponseEntity<>("Haki deleted successfully!", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Haki not found or unable to delete", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // New endpoint to get a specific Haki by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Haki> getHakiById(@PathVariable Long id) {
+        Optional<Haki> haki = hakiService.getHakiById(id);
+        return haki.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    // New endpoint to update the details of a Haki by ID
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateHaki(@PathVariable Long id, @RequestBody Haki updatedHaki) {
+        if (hakiService.updateHaki(id, updatedHaki)) {
+            return new ResponseEntity<>("Haki updated successfully!", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Haki not found or unable to update", HttpStatus.NOT_FOUND);
         }
     }
 }

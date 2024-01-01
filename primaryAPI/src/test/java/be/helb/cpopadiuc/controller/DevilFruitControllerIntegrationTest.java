@@ -66,4 +66,36 @@ public class DevilFruitControllerIntegrationTest {
                 .statusCode(200)
                 .body(equalTo("DevilFruit deleted successfully!"));
     }
+
+    //  test to get a specific devil fruit by ID
+    @Test
+    public void testGetDevilFruitById() {
+        Long latestId = devilFruitRepository.findMaxId();
+
+        given()
+                .when()
+                .get("/api/devil-fruits/" + latestId)
+                .then()
+                .statusCode(200);
+    }
+
+    //  test to update a devil fruit by ID
+    @Test
+    public void testUpdateDevilFruit() {
+        Long latestId = devilFruitRepository.findMaxId();
+
+        DevilFruit updatedDevilFruit = new DevilFruit();
+        updatedDevilFruit.setNameFruit("UpdatedTestDevilFruit");
+        updatedDevilFruit.setAbilities("UpdatedTestAbilities");
+        updatedDevilFruit.setType("UpdatedTestType");
+
+        given()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .body(updatedDevilFruit)
+                .when()
+                .put("/api/devil-fruits/" + latestId)
+                .then()
+                .statusCode(200)
+                .body(equalTo("DevilFruit updated successfully!"));
+    }
 }
