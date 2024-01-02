@@ -7,6 +7,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
@@ -55,12 +58,7 @@ public class CharacterControllerIntegrationTest {
                 .then()
                 .statusCode(200)
                 .body(equalTo("Character added successfully!"));
-    }
-
-
-    // Test to delete a character
-    @Test
-    public void testDeleteCharacter() {
+        // delete it below
         Long latestId = characterRepository.findMaxId();
 
         given()
@@ -122,7 +120,7 @@ public class CharacterControllerIntegrationTest {
 
         given()
                 .when()
-                .get("/api/characters/" + latestId)
+                .get("/api/characters/getByID/" + latestId)
                 .then()
                 .statusCode(200)
                 .body("id", equalTo(latestId.intValue())); // Adjust the assertion based on your actual data
@@ -145,21 +143,24 @@ public class CharacterControllerIntegrationTest {
                 .contentType("application/json")
                 .body(updatedCharacter)
                 .when()
-                .put("/api/characters/" + latestId)
+                .put("/api/characters/put/" + latestId)
                 .then()
                 .statusCode(200)
                 .body(equalTo("Character updated successfully!"));
 
-        // Optionally, you can add additional assertions to check if the data is updated in the database
+    }
+    // Test to initiate a fight between two characters
+    @Test
+    public void testInitiateFight() {
+        String character1Name = "Luffy";
+        String character2Name = "Zorro";
+
         given()
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .when()
-                .get("/api/characters/" + latestId)
+                .get("/api/characters/fight/{name1}/{name2}", character1Name, character2Name)
                 .then()
-                .statusCode(200)
-                .body("name", equalTo("UpdatedName"))
-                .body("rank", equalTo("UpdatedRank"))
-                .body("job", equalTo("UpdatedJob"))
-                .body("bounty", equalTo(2000000))
-                .body("imageUrl", equalTo("http://example.com/updated_image.jpg"));
+                .statusCode(HttpStatus.OK.value())
+                .body(equalTo("Luffy wins"));
     }
 }

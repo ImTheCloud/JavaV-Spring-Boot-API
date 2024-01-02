@@ -51,11 +51,8 @@ public class HakiControllerIntegrationTest {
                 .then()
                 .statusCode(200)
                 .body(equalTo("Haki added successfully!"));
-    }
 
-    // Test to delete a haki
-    @Test
-    public void testDeleteHaki() {
+        // delete it
         Long latestId = hakiRepository.findMaxId();
 
         given()
@@ -72,7 +69,7 @@ public class HakiControllerIntegrationTest {
 
         given()
                 .when()
-                .get("/api/haki/" + latestId)
+                .get("/api/haki/getByID/" + latestId)
                 .then()
                 .statusCode(200);
     }
@@ -90,7 +87,7 @@ public class HakiControllerIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(updatedHaki)
                 .when()
-                .put("/api/haki/" + latestId)
+                .put("/api/haki/put/" + latestId)
                 .then()
                 .statusCode(200)
                 .body(equalTo("Haki updated successfully!"));

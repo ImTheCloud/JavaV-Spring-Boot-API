@@ -43,7 +43,7 @@ public class DevilFruitController {
     }
 
     //  endpoint to get a specific devil fruit by ID
-    @GetMapping("/{id}")
+    @GetMapping("/getByID/{id}")
     public ResponseEntity<DevilFruit> getDevilFruitById(@PathVariable Long id) {
         Optional<DevilFruit> devilFruit = devilFruitService.getDevilFruitById(id);
         return devilFruit.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
@@ -51,7 +51,7 @@ public class DevilFruitController {
     }
 
     //  endpoint to update the details of a devil fruit by ID
-    @PutMapping("/{id}")
+    @PutMapping("/put/{id}")
     public ResponseEntity<String> updateDevilFruit(@PathVariable Long id, @RequestBody DevilFruit updatedDevilFruit) {
         if (devilFruitService.updateDevilFruit(id, updatedDevilFruit)) {
             return new ResponseEntity<>("DevilFruit updated successfully!", HttpStatus.OK);

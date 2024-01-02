@@ -51,11 +51,8 @@ public class FightTacticsControllerIntegrationTest {
                 .then()
                 .statusCode(200)
                 .body(equalTo("FightTactics added successfully!"));
-    }
 
-    // Test to delete a fight tactics
-    @Test
-    public void testDeleteFightTactics() {
+        // delete it :
         Long latestId = fightTacticsRepository.findMaxId();
 
         given()
@@ -66,6 +63,7 @@ public class FightTacticsControllerIntegrationTest {
                 .body(equalTo("FightTactics deleted successfully!"));
     }
 
+
     //  test to get a specific fight tactics by ID
     @Test
     public void testGetFightTacticsById() {
@@ -73,7 +71,7 @@ public class FightTacticsControllerIntegrationTest {
 
         given()
                 .when()
-                .get("/api/fight-tactics/" + latestId)
+                .get("/api/fight-tactics/getByID/" + latestId)
                 .then()
                 .statusCode(200);
     }
@@ -91,7 +89,7 @@ public class FightTacticsControllerIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(updatedFightTactics)
                 .when()
-                .put("/api/fight-tactics/" + latestId)
+                .put("/api/fight-tactics/put/" + latestId)
                 .then()
                 .statusCode(200)
                 .body(equalTo("FightTactics updated successfully!"));

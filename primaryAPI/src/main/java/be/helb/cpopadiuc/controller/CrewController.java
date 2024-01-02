@@ -50,7 +50,7 @@ public class CrewController {
     }
 
     // Handling HTTP GET request to retrieve a specific crew by ID
-    @GetMapping("/{id}")
+    @GetMapping("/getByID/{id}")
     public ResponseEntity<Crew> getCrewById(@PathVariable Long id) {
         Optional<Crew> crew = crewService.getCrewById(id);
         return crew.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
@@ -58,7 +58,7 @@ public class CrewController {
     }
 
     // Handling HTTP PUT request to update the details of a crew by ID
-    @PutMapping("/{id}")
+    @PutMapping("/put/{id}")
     public ResponseEntity<String> updateCrew(@PathVariable Long id, @RequestBody Crew updatedCrew) {
         if (crewService.updateCrew(id, updatedCrew)) {
             return new ResponseEntity<>("Crew updated successfully!", HttpStatus.OK);

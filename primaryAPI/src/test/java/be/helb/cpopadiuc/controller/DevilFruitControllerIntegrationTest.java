@@ -52,11 +52,8 @@ public class DevilFruitControllerIntegrationTest {
                 .then()
                 .statusCode(200)
                 .body(equalTo("DevilFruit added successfully!"));
-    }
+        // delete it
 
-    // Test to delete a devil fruit
-    @Test
-    public void testDeleteDevilFruit() {
         Long latestId = devilFruitRepository.findMaxId();
 
         given()
@@ -67,6 +64,8 @@ public class DevilFruitControllerIntegrationTest {
                 .body(equalTo("DevilFruit deleted successfully!"));
     }
 
+
+
     //  test to get a specific devil fruit by ID
     @Test
     public void testGetDevilFruitById() {
@@ -74,7 +73,7 @@ public class DevilFruitControllerIntegrationTest {
 
         given()
                 .when()
-                .get("/api/devil-fruits/" + latestId)
+                .get("/api/devil-fruits/getByID/" + latestId)
                 .then()
                 .statusCode(200);
     }
@@ -93,7 +92,7 @@ public class DevilFruitControllerIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(updatedDevilFruit)
                 .when()
-                .put("/api/devil-fruits/" + latestId)
+                .put("/api/devil-fruits/put/" + latestId)
                 .then()
                 .statusCode(200)
                 .body(equalTo("DevilFruit updated successfully!"));

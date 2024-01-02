@@ -99,7 +99,7 @@ public class CharacterController {
     }
 
     // Handling HTTP PUT request to update a character by ID
-    @PutMapping("/{id}")
+    @PutMapping("/put/{id}")
     public ResponseEntity<String> updateCharacter(@PathVariable Long id, @RequestBody Character updatedCharacter) {
         if (characterService.updateCharacter(id, updatedCharacter)) {
             return new ResponseEntity<>("Character updated successfully!", HttpStatus.OK);
@@ -109,7 +109,7 @@ public class CharacterController {
     }
 
     // Handling HTTP GET request to retrieve a character by ID
-    @GetMapping("/{id}")
+    @GetMapping("/getByID/{id}")
     public ResponseEntity<Character> getCharacterById(@PathVariable Long id) {
         Optional<Character> character = characterService.getCharacterById(id);
         return character.map(value -> new ResponseEntity<>(value, HttpStatus.OK))

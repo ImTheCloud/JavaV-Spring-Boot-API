@@ -43,7 +43,7 @@ public class HakiController {
     }
 
     // New endpoint to get a specific Haki by ID
-    @GetMapping("/{id}")
+    @GetMapping("/getByID/{id}")
     public ResponseEntity<Haki> getHakiById(@PathVariable Long id) {
         Optional<Haki> haki = hakiService.getHakiById(id);
         return haki.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
@@ -51,7 +51,7 @@ public class HakiController {
     }
 
     // New endpoint to update the details of a Haki by ID
-    @PutMapping("/{id}")
+    @PutMapping("/put/{id}")
     public ResponseEntity<String> updateHaki(@PathVariable Long id, @RequestBody Haki updatedHaki) {
         if (hakiService.updateHaki(id, updatedHaki)) {
             return new ResponseEntity<>("Haki updated successfully!", HttpStatus.OK);

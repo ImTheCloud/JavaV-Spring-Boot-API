@@ -52,12 +52,8 @@ public class CrewControllerIntegrationTest {
                 .then()
                 .statusCode(200)
                 .body(equalTo("Crew added successfully!"));
-    }
 
-    // Test to delete a crew
-    @Test
-    public void testDeleteCrew() {
-        // Assume there is at least one crew in the database for testing
+        // Delete it
         Long latestId = crewRepository.findMaxId();
 
         given()
@@ -73,7 +69,7 @@ public class CrewControllerIntegrationTest {
     public void testGetCrewById() {
         given()
                 .when()
-                .get("/api/crews/" + 1)
+                .get("/api/crews/getByID/" + 1)
                 .then()
                 .statusCode(200);
     }
@@ -93,7 +89,7 @@ public class CrewControllerIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(updatedCrew)
                 .when()
-                .put("/api/crews/" + latestId)
+                .put("/api/crews/put/" + latestId)
                 .then()
                 .statusCode(200)
                 .body(equalTo("Crew updated successfully!"));

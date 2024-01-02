@@ -43,7 +43,7 @@ public class FightTacticsController {
     }
 
     // New endpoint to get a specific fight tactics by ID
-    @GetMapping("/{id}")
+    @GetMapping("/getByID/{id}")
     public ResponseEntity<FightTactics> getFightTacticsById(@PathVariable Long id) {
         Optional<FightTactics> fightTactics = fightTacticsService.getFightTacticsById(id);
         return fightTactics.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
@@ -51,7 +51,7 @@ public class FightTacticsController {
     }
 
     // New endpoint to update the details of a fight tactics by ID
-    @PutMapping("/{id}")
+    @PutMapping("/put/{id}")
     public ResponseEntity<String> updateFightTactics(@PathVariable Long id, @RequestBody FightTactics updatedFightTactics) {
         if (fightTacticsService.updateFightTactics(id, updatedFightTactics)) {
             return new ResponseEntity<>("FightTactics updated successfully!", HttpStatus.OK);
