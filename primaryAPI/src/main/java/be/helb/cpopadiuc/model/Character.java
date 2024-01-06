@@ -39,8 +39,12 @@ public class Character {
     @Column(name = "bounty", nullable = false)
     private long bounty;
 
-    // Many-to-One relationship with DevilFruit entity
-    @ManyToOne
+    // Column annotation for the imageUrl field in the database table
+    @Column(name = "imageUrl", nullable = false, length = 1000)
+    private String imageUrl;
+
+    // One-to-One relationship with DevilFruit entity
+    @OneToOne
     @JoinColumn(name = "devilfruit_id")
     private DevilFruit devilFruit;
 
@@ -58,8 +62,4 @@ public class Character {
     @ManyToOne
     @JoinColumn(name = "fighttactics_id")
     private FightTactics fightTactics;
-
-    // Column annotation for the imageUrl field in the database table
-    @Column(name = "imageUrl", nullable = false, length = 1000)
-    private String imageUrl;
 }

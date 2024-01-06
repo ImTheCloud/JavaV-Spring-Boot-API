@@ -1,5 +1,6 @@
 package be.helb.cpopadiuc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,4 +36,9 @@ public class DevilFruit {
     // Column annotation for the type field in the database table
     @Column(name = "type", nullable = false)
     private String type;
+
+    // One-to-One relationship with Character entity
+    @OneToOne(mappedBy = "devilFruit")
+    @JsonIgnore
+    private Character character;
 }

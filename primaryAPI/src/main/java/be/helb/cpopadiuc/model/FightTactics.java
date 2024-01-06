@@ -1,9 +1,11 @@
 package be.helb.cpopadiuc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 // Lombok annotations to generate getters and setters
 @Getter
@@ -31,4 +33,5 @@ public class FightTactics {
     // Column annotation for the type field in the database table
     @Column(name = "type", nullable = false)
     private String type;
+
 }

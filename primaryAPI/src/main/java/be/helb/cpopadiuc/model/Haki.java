@@ -1,9 +1,11 @@
 package be.helb.cpopadiuc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 // Lombok annotations to generate getters and setters
 @Getter
@@ -31,4 +33,8 @@ public class Haki {
     // Column annotation for the descriptionHaki field in the database table
     @Column(name = "description_haki", nullable = false)
     private String descriptionHaki;
+
+    @OneToMany(mappedBy = "haki")
+    @JsonIgnore
+    private List<Character> characters;
 }
