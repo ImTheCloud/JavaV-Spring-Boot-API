@@ -1,32 +1,33 @@
-// Fight.java
 package be.helb.cpopadiuc.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.persistence.*;
 
-// Entity class representing a Fight
-@Getter
-@Setter
-@Entity
-@Table(name = "fights")
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+// Classe représentant un combat dans le système
+@Getter // Génère automatiquement les getters pour tous les champs
+@Setter // Génère automatiquement les setters pour tous les champs
+@NoArgsConstructor // Génère un constructeur sans arguments
+@Entity // Indique qu'il s'agit d'une entité JPA
+@Table(name = "fights") // Spécifie le nom de la table dans la base de données
 public class Fight {
 
-    // Primary key for the Fight entity
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_fight")
-    private Long id;
+    @Id // Clé primaire de l'entité
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Stratégie de génération automatique de l'ID
+    private Long id; // Identifiant unique du combat
 
-    // Names of the characters involved in the fight
-    @Column(name = "name1", nullable = false)
-    private String name1;
+    @Column(nullable = false) // Colonne 'allFight' ne peut pas être nulle
+    private String allFight; // Détails du combat
 
-    @Column(name = "name2", nullable = false)
-    private String name2;
-
-    // Result of the fight
-    @Column(name = "result", nullable = false)
-    private String result;
+    // Constructeur avec les détails du combat
+    public Fight(String allFight) {
+        this.allFight = allFight;
+    }
 }
-

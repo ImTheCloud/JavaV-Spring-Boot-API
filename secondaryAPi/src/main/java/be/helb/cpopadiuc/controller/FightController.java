@@ -1,4 +1,3 @@
-// FightController.java
 package be.helb.cpopadiuc.controller;
 
 import be.helb.cpopadiuc.model.Fight;
@@ -7,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
-// REST controller for handling Fight-related operations
 @RestController
-@RequestMapping("/api/fights")
+@RequestMapping("/fights")
 public class FightController {
 
     private final FightService fightService;
@@ -21,30 +20,28 @@ public class FightController {
         this.fightService = fightService;
     }
 
-    @GetMapping
-    public List<Fight> getAllFights() {
-        return fightService.getAllFights();
+    @GetMapping("/getAllFights")
+    public ResponseEntity<List<Fight>> getAllFights() {
+        List<Fight> fights = fightService.getAllFights();
+        return ResponseEntity.ok(fights);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<String> addFight(@RequestBody Fight fight) {
-        fightService.addFight(fight);
-        return new ResponseEntity<>("Fight added successfully!", HttpStatus.OK);
+    @PostMapping("/addFight")
+    public ResponseEntity<Fight> addFight(@RequestBody Fight fight) {
+        Fight newFight = fightService.addFight(fight);
+        return new ResponseEntity<>(newFight, HttpStatus.CREATED);
     }
 
-    @GetMapping("/fightResult/{name1}/{name2}")
-    public ResponseEntity<String> getFightResult(@PathVariable String name1, @PathVariable String name2) {
-        String result = fightService.getFightResult(name1, name2);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+    @GetMapping("/findFight/{id}")
+    public ResponseEntity<Fight> getFightById(@PathVariable Long id) {
+        return fightService.getFightById(id)
+                .map(ResponseEntity::ok)
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Endpoint to delete a specific fight
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteFight(@PathVariable Long id) {
-        if (fightService.deleteFightById(id)) {
-            return new ResponseEntity<>("Fight deleted successfully!", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>("Fight not found or unable to delete", HttpStatus.NOT_FOUND);
-        }
+    @DeleteMapping("/deleteFight/{id}")
+    public ResponseEntity<Void> deleteFight(@PathVariable Long id) {
+        fightService.deleteFightById(id);
+        return ResponseEntity.ok().build();
     }
 }
