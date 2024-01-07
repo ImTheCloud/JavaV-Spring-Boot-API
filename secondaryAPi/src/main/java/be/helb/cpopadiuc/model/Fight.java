@@ -3,11 +3,8 @@ package be.helb.cpopadiuc.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 
 // Class representing a fight in the system
 @Getter
@@ -19,8 +16,11 @@ public class Fight {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String allFight;
-
+    private Long id; // Unique identifier for the fight
+    @Column(nullable = false)
+    private String nameFighter1;
+    @Column(nullable = false)
+    private String nameFighter2;
+    @Column(nullable = false)
+    private String winner;
 }

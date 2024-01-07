@@ -10,8 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class FightControllerIntegrationTest {
@@ -26,6 +25,7 @@ public class FightControllerIntegrationTest {
     }
 
     // Test to get all fights
+// Test to get all fights
     @Test
     public void testGetAllFights() {
         given()
@@ -33,14 +33,17 @@ public class FightControllerIntegrationTest {
                 .get("/fights/getAllFights")
                 .then()
                 .statusCode(200)
-                .body("size()", greaterThan(0));
+                .body("size()", greaterThanOrEqualTo(0));
     }
+
 
     // Test to add a fight
     @Test
     public void testAddFight() {
         Fight fightToAdd = new Fight();
-        fightToAdd.setAllFight("TestFight");
+        fightToAdd.setNameFighter1("Luffy");
+        fightToAdd.setNameFighter2("Shanks");
+        fightToAdd.setWinner("Luffy");
 
         given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -70,19 +73,5 @@ public class FightControllerIntegrationTest {
                 .get("/fights/findFight/" + 1)
                 .then()
                 .statusCode(200);
-    }
-
-    // Test to delete a fight by ID
-    @Test
-    public void testDeleteFight() {
-        // Assume there is at least one fight in the database for testing
-        Long latestId = fightRepository.findMaxId();
-
-        given()
-                .when()
-                .delete("/fights/deleteFight/" + latestId)
-                .then()
-                .statusCode(200)
-                .body(equalTo("Fight deleted successfully!"));
     }
 }

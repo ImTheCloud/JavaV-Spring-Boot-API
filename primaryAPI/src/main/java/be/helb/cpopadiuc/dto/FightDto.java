@@ -12,5 +12,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class FightDto {
     private Long id; // Unique identifier for the fight
-    private String allFight; // Details of the fight
+    private String nameFighter1;
+    private String nameFighter2;
+    private String winner;
+
 }

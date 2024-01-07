@@ -10,7 +10,9 @@ import org.mapstruct.factory.Mappers;
 public interface FightMapper {
     FightMapper INSTANCE = Mappers.getMapper(FightMapper.class);
 
+    // Mapping method from Fight to FightDto
     FightDto fightToFightDto(Fight fight);
 
+    // Mapping method from FightDto to Fight
     Fight fightDtoToFight(FightDto fightDto);
 }
