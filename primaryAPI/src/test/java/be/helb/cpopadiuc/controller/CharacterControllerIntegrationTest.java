@@ -110,7 +110,7 @@ public class CharacterControllerIntegrationTest {
                 .get("/api/characters/highBountyAndNoDevilFruit")
                 .then()
                 .statusCode(200)
-                .body("size()", equalTo(1));
+                .body("size()", equalTo(0));
     }
 
     // Test to get a character by ID

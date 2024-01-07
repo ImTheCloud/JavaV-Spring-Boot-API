@@ -66,10 +66,12 @@ public class CharacterService {
     }
 
     // Method to update a character by ID
+// Method to update a character by ID
     public boolean updateCharacter(Long id, Character updatedCharacter) {
         Optional<Character> optionalCharacter = characterRepository.findById(id);
         if (optionalCharacter.isPresent()) {
             Character existingCharacter = optionalCharacter.get();
+
             existingCharacter.setName(updatedCharacter.getName());
             existingCharacter.setRank(updatedCharacter.getRank());
             existingCharacter.setJob(updatedCharacter.getJob());
@@ -77,8 +79,10 @@ public class CharacterService {
             existingCharacter.setDevilFruit(updatedCharacter.getDevilFruit());
             existingCharacter.setCrew(updatedCharacter.getCrew());
             existingCharacter.setHaki(updatedCharacter.getHaki());
-            existingCharacter.setFightTactics(updatedCharacter.getFightTactics());
             existingCharacter.setImageUrl(updatedCharacter.getImageUrl());
+
+            // Update the fight tactics
+            existingCharacter.setFightTactics(updatedCharacter.getFightTactics());
 
             characterRepository.save(existingCharacter);
             return true;
@@ -86,5 +90,6 @@ public class CharacterService {
             return false;
         }
     }
+
 
 }

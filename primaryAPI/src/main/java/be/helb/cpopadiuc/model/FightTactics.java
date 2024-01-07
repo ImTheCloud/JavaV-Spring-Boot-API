@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 // Lombok annotations to generate getters and setters
 @Getter
@@ -33,5 +34,10 @@ public class FightTactics {
     // Column annotation for the type field in the database table
     @Column(name = "type", nullable = false)
     private String type;
+
+    // Many-to-Many relationship with Character entity
+    @ManyToMany(mappedBy = "fightTactics")
+    @JsonIgnore
+    private Set<Character> characters;
 
 }

@@ -3,6 +3,7 @@ package be.helb.cpopadiuc.model;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
+import java.util.Set;
 
 // Lombok annotations to generate getters and setters
 @Getter
@@ -59,7 +60,11 @@ public class Character {
     private Haki haki;
 
     // Many-to-One relationship with FightTactics entity
-    @ManyToOne
-    @JoinColumn(name = "fighttactics_id")
-    private FightTactics fightTactics;
+    @ManyToMany
+    @JoinTable(
+            name = "character_fighttactics",
+            joinColumns = @JoinColumn(name = "character_id"),
+            inverseJoinColumns = @JoinColumn(name = "fighttactics_id")
+    )
+    private Set<FightTactics> fightTactics;
 }
