@@ -1,13 +1,12 @@
-package be.helb.cpopadiuc.client;
-
+package be.helb.cpopadiuc.dataAccess;
 
 import be.helb.cpopadiuc.dto.FightDto;
 import feign.Headers;
-import feign.Param;
 import feign.RequestLine;
 
 import java.util.List;
 
+// Feign client interface for accessing fight data
 public interface DataAccessFight {
 
     @RequestLine("GET /fights/getAllFights")

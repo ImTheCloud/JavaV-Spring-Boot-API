@@ -20,8 +20,7 @@ public class CharacterController {
 
     // Injecting CharacterService and RestTemplate dependencies
     private final CharacterService characterService;
-    @Autowired
-    private RestTemplate restTemplate;
+
     @Value("${fight.api.url}")
     private String fightApiUrl;
 
@@ -77,27 +76,6 @@ public class CharacterController {
     public List<Character> getCharactersWithHighBountyAndNoDevilFruit() {
         return characterService.getCharactersWithHighBountyAndNoDevilFruit();
     }
-
-    // Handling HTTP GET request to initiate a fight between two characters with the secondary API
-    @GetMapping("/fight/{name1}/{name2}")
-    public ResponseEntity<String> initiateFight(@PathVariable String name1, @PathVariable String name2) {
-        // Constructing the API endpoint for the fight service
-        String fightApiEndpoint = fightApiUrl + "/api/fights/fightResult/{name1}/{name2}";
-
-        // Making a GET request to the fight service API using RestTemplate
-        ResponseEntity<String> response = restTemplate.exchange(
-                fightApiEndpoint,
-                HttpMethod.GET,
-                null,
-                String.class,
-                name1,
-                name2
-        );
-
-        // Returning the response from the fight service
-        return new ResponseEntity<>(response.getBody(), response.getStatusCode());
-    }
-
     // Handling HTTP PUT request to update a character by ID
     @PutMapping("/put/{id}")
     public ResponseEntity<String> updateCharacter(@PathVariable Long id, @RequestBody Character updatedCharacter) {

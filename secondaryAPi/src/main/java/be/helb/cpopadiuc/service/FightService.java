@@ -18,18 +18,22 @@ public class FightService {
         this.fightRepository = fightRepository;
     }
 
+    // Get all fights
     public List<Fight> getAllFights() {
         return fightRepository.findAll();
     }
 
+    // Add a new fight
     public Fight addFight(Fight fight) {
         return fightRepository.save(fight);
     }
 
+    // Get a fight by ID
     public Optional<Fight> getFightById(Long id) {
         return fightRepository.findById(id);
     }
 
+    // Delete a fight by ID
     public void deleteFightById(Long id) {
         fightRepository.deleteById(id);
     }

@@ -1,10 +1,15 @@
 package be.helb.cpopadiuc.model;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import javax.persistence.*;
-
+// Class representing a fight in the system
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,12 +19,7 @@ public class Fight {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id; // Unique identifier for the fight
 
-    @Column(nullable = false)
-    private String allFight;
-
-    public Fight(String allFight) {
-        this.allFight = allFight;
-    }
+    private String allFight; // Details of the fight
 }

@@ -3,31 +3,24 @@ package be.helb.cpopadiuc.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-// Classe représentant un combat dans le système
-@Getter // Génère automatiquement les getters pour tous les champs
-@Setter // Génère automatiquement les setters pour tous les champs
-@NoArgsConstructor // Génère un constructeur sans arguments
-@Entity // Indique qu'il s'agit d'une entité JPA
-@Table(name = "fights") // Spécifie le nom de la table dans la base de données
+// Class representing a fight in the system
+@Getter
+@Setter
+@NoArgsConstructor
+@Entity
+@Table(name = "fights")
 public class Fight {
 
-    @Id // Clé primaire de l'entité
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Stratégie de génération automatique de l'ID
-    private Long id; // Identifiant unique du combat
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(nullable = false) // Colonne 'allFight' ne peut pas être nulle
-    private String allFight; // Détails du combat
+    private String allFight;
 
-    // Constructeur avec les détails du combat
-    public Fight(String allFight) {
-        this.allFight = allFight;
-    }
 }

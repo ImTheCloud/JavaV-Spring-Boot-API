@@ -5,11 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+// Data Transfer Object (DTO) for Fight
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class FightDto {
-    private Long id;
-    private String allFight;
+    private Long id; // Unique identifier for the fight
+    private String allFight; // Details of the fight
 }

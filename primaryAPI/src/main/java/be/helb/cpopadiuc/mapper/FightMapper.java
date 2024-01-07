@@ -5,6 +5,7 @@ import be.helb.cpopadiuc.model.Fight;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+// Mapper interface for mapping between Fight and FightDto
 @Mapper(componentModel = "spring")
 public interface FightMapper {
     FightMapper INSTANCE = Mappers.getMapper(FightMapper.class);
