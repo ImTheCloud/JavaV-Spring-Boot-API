@@ -126,8 +126,16 @@ const CharacterList = () => {
                                             <ListItemText primary={`Haki: ${character.haki ? character.haki.nameHaki : 'N/A'}`} />
                                         </ListItem>
                                         <ListItem>
-                                            <ListItemText primary={`Fight Tactics: ${character.fightTactics ? `${character.fightTactics.nameTactics} ` : 'N/A'}`} />
+                                            <ListItemText primary="Fight Tactics:" />
+                                            <List>
+                                                {character.fightTactics && character.fightTactics.map((tactic) => (
+                                                    <ListItem key={tactic.id}>
+                                                        <ListItemText primary={`${tactic.nameTactics} (${tactic.type})`} />
+                                                    </ListItem>
+                                                ))}
+                                            </List>
                                         </ListItem>
+
                                     </List>
                                 </CardContent>
                             </Card>
