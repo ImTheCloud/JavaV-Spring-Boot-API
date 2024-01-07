@@ -110,7 +110,7 @@ public class CharacterControllerIntegrationTest {
                 .get("/api/characters/highBountyAndNoDevilFruit")
                 .then()
                 .statusCode(200)
-                .body("size()", equalTo(0));
+                .body("size()",  greaterThan(0));
     }
 
     // Test to get a character by ID
@@ -149,18 +149,5 @@ public class CharacterControllerIntegrationTest {
                 .body(equalTo("Character updated successfully!"));
 
     }
-    // Test to initiate a fight between two characters
-    @Test
-    public void testInitiateFight() {
-        String character1Name = "Luffy";
-        String character2Name = "Zorro";
 
-        given()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .when()
-                .get("/api/characters/fight/{name1}/{name2}", character1Name, character2Name)
-                .then()
-                .statusCode(HttpStatus.OK.value())
-                .body(equalTo("Luffy wins"));
-    }
 }

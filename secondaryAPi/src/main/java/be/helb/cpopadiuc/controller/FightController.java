@@ -38,7 +38,7 @@ public class FightController {
         try {
             Fight newFight = fightService.addFight(fight);
             // Successfully added
-            return new ResponseEntity<>("Fight added successfully with ID: " + newFight.getId(), HttpStatus.CREATED);
+            return new ResponseEntity<>("Fight added successfully!", HttpStatus.CREATED);
         } catch (Exception e) {
             // Bad request if unable to add
             return new ResponseEntity<>("Failed to add fight. Please check the request body.", HttpStatus.BAD_REQUEST);

@@ -85,11 +85,13 @@
             <version>1.4.2.Final</version>
         </dependency>
 
+        <!-- Spring Web -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!-- Spring Data JPA -->
 
         <dependency>
 
@@ -103,6 +105,7 @@
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- Spring Boot Test -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -111,12 +114,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Feign for declarative web service clients -->
         <dependency>
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-okhttp</artifactId>
             <version>10.1.0</version>
         </dependency>
-
+        <!-- Feign Jackson Serializer -->
         <dependency>
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-jackson</artifactId>
@@ -124,15 +128,17 @@
         </dependency>
 
     </dependencies>
+    <!-- Maven build configuration -->
 
     <build>
         <plugins>
-            <!-- Compiler Plugin pour le traitement des annotations MapStruct -->
+            <!-- Compiler Plugin for the processing of MapStruct annotations -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
+                    <!-- Compiler source and target versions -->
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
                     <annotationProcessorPaths>
